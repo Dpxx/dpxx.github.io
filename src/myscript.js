@@ -57,9 +57,9 @@ function calDistance(node,w){
 
 function solve_3(board){
 	let target = [1, 2, 3, 4, 5, 6, 7, 8, 0];
-  let dir = [-1,1,-3,3];
+    let dir = [-1,1,-3,3];
 	var pQueue = new PriorityQueue();
-	var s0 = new state(calDistance(board,3), board, board.indexOf(0), 0, []);
+	var s0 = new state(0, board, board.indexOf(0), 0, []);
 	pQueue.enqueue(s0);
   let seen = {};
   seen[board] = true;
@@ -79,7 +79,7 @@ function solve_3(board){
         let newboard = [...state1.board];
         [newboard[state1.pos0] ,newboard[nei]] = [newboard[nei], newboard[state1.pos0]];
         if (!seen[newboard.toString()]){
-          let new_state = new state(state1.depth+1+calDistance(newboard,3), newboard, nei, state1.depth+1, state1.process.concat(dir[i]));
+          let new_state = new state(state1.depth+1, newboard, nei, state1.depth+1, state1.process.concat(dir[i]));
           pQueue.enqueue(new_state);
           seen[state1.board.toString()] = true;
         }
@@ -90,35 +90,35 @@ function solve_3(board){
 
 function solve_4(board){
 	let target = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-  let dir = [-1,1,-4,4];
+    let dir = [-1,1,-4,4];
 	var pQueue = new PriorityQueue();
 	var s0 = new state(calDistance(board,4), board, board.indexOf(0), 0, []);
 	pQueue.enqueue(s0);
-  let seen = {};
-  seen[board] = true;
+    let seen = {};
+    seen[board] = true;
 
-  while (! pQueue.empty()){
-    state1 = pQueue.dequeue();
-    console.log(state1.priority);
-    if (state1.board.toString() == target.toString()){
-      return [state1.depth, state1.process];
-    }
-    for (let i = 0; i < 4;i++){
-      let nei = state1.pos0 + dir[i];
-      if (Math.abs(Math.floor(nei / 4) - Math.floor(state1.pos0  / 4)) + Math.abs(nei % 4 - state1.pos0 % 4) != 1){
-        continue;
+    while (! pQueue.empty()){
+      state1 = pQueue.dequeue();
+      console.log(state1.priority);
+      if (state1.board.toString() == target.toString()){
+        return [state1.depth, state1.process];
       }
-      if (nei>=0 && nei <16){
-        let newboard = [...state1.board];
-        [newboard[state1.pos0] ,newboard[nei]] = [newboard[nei], newboard[state1.pos0]];
-        if (!seen[newboard.toString()]){
-          let new_state = new state(state1.depth+1+0.9 * calDistance(newboard,4), newboard, nei, state1.depth+1, state1.process.concat(dir[i]));
-          pQueue.enqueue(new_state);
-          seen[state1.board.toString()] = true;
+      for (let i = 0; i < 4;i++){
+        let nei = state1.pos0 + dir[i];
+        if (Math.abs(Math.floor(nei / 4) - Math.floor(state1.pos0  / 4)) + Math.abs(nei % 4 - state1.pos0 % 4) != 1){
+          continue;
+        }
+        if (nei>=0 && nei <16){
+          let newboard = [...state1.board];
+          [newboard[state1.pos0] ,newboard[nei]] = [newboard[nei], newboard[state1.pos0]];
+          if (!seen[newboard.toString()]){
+            let new_state = new state(state1.depth+1+0.9 * calDistance(newboard,4), newboard, nei, state1.depth+1, state1.process.concat(dir[i]));
+            pQueue.enqueue(new_state);
+            seen[state1.board.toString()] = true;
+          }
         }
       }
     }
-  }
 }
 
 
