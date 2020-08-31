@@ -1,0 +1,116 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>EE447</title>
+<head>
+  <style>
+    body{text-align:center}
+  </style>
+</head>
+<body>
+  <div id="search_3">
+    <p>求解8P数字华容道最少步，基本可以秒出答案。</p>
+    <p>输入格式，按行逐一读，没数字的格子读 0，用英文逗号分开每个数字，如"1,2,3,4,5,6,7,8,0"。</p>
+	<p>使用方法，手放在空格子上，然后根据搜索结果中的上下左右进行移动。</p>
+    <input v-model="message" type="text" >
+    <button v-on:click="fly">搜索</button><br>
+    <p>{{ steps }}</p>
+    <p>{{ solutions }}</p>
+  </div>
+  <div id="search_4">
+    <p>求解15P数字华容道，这个过程可能持续零点几秒到几分钟不等，建议搜一些步数可能少于35步的^^</p>
+    <input v-model="message" type="text" >
+    <button v-on:click="fly">搜索</button><br>
+    <p>{{ steps }}</p>
+    <p>{{ solutions }}</p>
+  </div>
+
+<script src="src/myscript.js"></script>
+<script src="src/vue.js" charset="utf-8"></script>
+<script type="text/javascript">
+var search_3 = new Vue({
+  el:'#search_3',
+  data:{
+    message:'',
+    steps:'',
+    solutions:''
+  },
+  methods:{
+    fly:function(event){
+      this.solutions = '';
+      var puzzle = this.message.split(',');
+      var arr = [];
+      for (var i in puzzle) {
+          arr.push(puzzle[i]*1);
+      }
+      if (arr.length != 9){
+        alert("请按正确格式与长度输入。");
+        return;
+      }
+      //alert(puzzle.indexOf(0));
+      var solution = solve_3(arr);
+      this.steps = '最少步：' + solution[0];
+      for (let j in solution[1]) {
+        let d = solution[1][j]*1;
+        switch (d) {
+          case -1:
+            this.solutions += "左 ";
+            break;
+          case 1:
+            this.solutions += "右 ";
+            break;
+          case -3:
+              this.solutions += "上 ";
+            break;
+          default:
+            this.solutions += "下 ";
+        }
+      //this.solutions = solution[1];
+    }
+  }
+}
+})
+var search_4 = new Vue({
+  el:'#search_4',
+  data:{
+    message:'',
+    steps:'',
+    solutions:''
+  },
+  methods:{
+    fly:function(event){
+      this.solutions = '';
+      var puzzle = this.message.split(',');
+      var arr = [];
+      for (var i in puzzle) {
+          arr.push(puzzle[i]*1);
+      }
+      if (arr.length != 16){
+        alert("请按正确格式与长度输入。");
+        return;
+      }
+      //alert(puzzle.indexOf(0));
+      var solution = solve_4(arr);
+      this.steps = '最少步：' + solution[0];
+      for (let j in solution[1]) {
+        let d = solution[1][j]*1;
+        switch (d) {
+          case -1:
+            this.solutions += "左 ";
+            break;
+          case 1:
+            this.solutions += "右 ";
+            break;
+          case -4:
+              this.solutions += "上 ";
+            break;
+          default:
+            this.solutions += "下 ";
+        }
+      //this.solutions = solution[1];
+    }
+  }
+}
+})
+</script>
+</body>
+</html>
