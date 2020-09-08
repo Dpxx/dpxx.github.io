@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>数字华容道</title>
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-	<link rel="stylesheet" href="src/mystyle.css" type="text/css" />
+    <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="src/mystyle.css" type="text/css" />
 </head>
 <body>
 <div id="main">
-    <!-- 菜单样式为active类 -->
     <nav v-bind:class="active" v-on:click.prevent>
-        <!-- 当菜单链接被点击，调用makeActive方法 -->
         <a href="#" class="three" v-on:click="makeActive('three')">3x3</a>
         <a href="#" class="four" v-on:click="makeActive('four')">4x4</a>
     </nav>
     <p>选择了难度<b>{{puzzle}}</b></p>
-	<p>输入格式:逐行逐个读取,用逗号或空格隔开，没数字的格读作0。</p>
-	<p>例如 {{example}}</p>
-	<input v-model="message" type="text" >
-    <button v-on:click="fly"><span>Go </span></button>
-	<p>{{ steps }}</p>
+    <p>输入格式:逐行逐个读取,用逗号或空格隔开，没数字的格读作0。</p>
+    <p>例如 {{example}}</p>
+    <input v-model="message" type="text" >
+    <button class="button" v-on:click="fly"><span>Go </span></button>
+    <p>{{ steps }}</p>
     <p>{{ solutions }}</p>
 </div>
+<div id="gameDiv"></div>
 <script src="src/myscript.js"></script>
 </body>
 </html>
