@@ -1,3 +1,4 @@
+//优先级队列，用于4x4的启发式搜索
 function PriorityQueue(){
     this.dataStore = [];
     this.enqueue = enqueue;
@@ -28,7 +29,7 @@ function enqueue(element){
 function dequeue(){
     return this.dataStore.shift();
 }
-//判断数组是否为空
+
 function empty(){
     if(this.dataStore.length == 0){
         return true;
@@ -37,7 +38,7 @@ function empty(){
     }
 }
 
-
+//定义一个总的状态，包括(优先级、当前状态、0的位置、搜索深度、从起始到这一状态的操作)
 function state(priority, board, pos0, depth, process){
     this.priority = priority;
     this.board = board;
@@ -45,7 +46,7 @@ function state(priority, board, pos0, depth, process){
     this.depth = depth;
     this.process = process;
 }
-
+//计算曼哈顿距离，作为启发函数
 function calDistance(node,w){
     let dis = 0;
     for (i = 0; i < node.length; i++) {
@@ -54,7 +55,7 @@ function calDistance(node,w){
     }
     return dis;
 }
-
+//3*3求解
 function solve_3(board){
     let target = [1, 2, 3, 4, 5, 6, 7, 8, 0];
     let dir = [-1,1,-3,3];
@@ -87,7 +88,7 @@ function solve_3(board){
     }
   }
 }
-
+//4*4求解
 function solve_4(board){
     let target = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
     let dir = [-1,1,-4,4];
@@ -120,11 +121,11 @@ function solve_4(board){
         }
       }
 }
-
-
+//定义了几个全局变量
 var op = 3;
 var state_input = [];
 var solutions;
+//vuejs实现的几个按钮
 var vm = new Vue({
     //DOM元素，挂载视图模式
     el:'#main',
@@ -203,6 +204,8 @@ var vm = new Vue({
     }
 })
 
+//以下为展示部分 jQuery实现
+//上色
 function setColor(tds) {
     var nullTd = tds.filter(function() {
         return $(this).html() == 0;
@@ -219,16 +222,10 @@ function setColor(tds) {
         "borderColor": "black"
     });
 }
-
+//交换两个方块
 function setContentAndStep(cell0, cell1) {
-    if (cell1.html() == 0) {
-        cell1.html(cell0.html());
-        cell0.html(0);
-    }
-}
-
-function sleep(d){
-  for(var t = Date.now();Date.now() - t <= d;);
+    cell1.html(cell0.html());
+    cell0.html(0);
 }
 
 function display(){
@@ -271,7 +268,7 @@ $(document).ready(function() {
         var sleep = setTimeout(display, 2020);
         //display();
     });
-
+    //生成图表
     function GenerateTables(op, numbers) {
         gameDiv.append("<table  align='center' id='gameTable'></table>");
         var gameTable = $("#gameTable");
