@@ -17,7 +17,7 @@
  section, footer, header, aside, nav{
     display: block;
 }
-  nav{
+ nav{
     display:inline-block;
     margin:60px auto 45px;
     background-color:#5597b4;
@@ -34,7 +34,7 @@
     line-height:1;
     text-transform: uppercase;
     background-color:transparent;
-     -webkit-transition:background-color 0.25s;
+    -webkit-transition:background-color 0.25s;
     -moz-transition:background-color 0.25s;
     transition:background-color 0.25s;
 }
@@ -104,4 +104,9 @@ button span {
  button:hover span:after {
     opacity: 1;
     right: 0;
+}
+#gameDiv {
+	width: 420px;
+	height:420px;
+	margin: 0 auto;
 }
