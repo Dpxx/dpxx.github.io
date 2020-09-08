@@ -199,3 +199,77 @@ function empty(){
     }
 }
 */
+
+var vm = new Vue({
+    //DOM元素，挂载视图模式
+    el:'#main',
+    //定义属性，设置初始值
+    data:{
+        message:'',
+        active:'three',
+        puzzle:3,
+        example:'1,2,3,4,5,6,7,0,8',
+        steps:'',
+        solutions:''
+    }, 
+    methods:{
+        makeActive:function(item){
+        this.active=item;
+	switch (item){
+	    case "three":
+	        this.puzzle = 3;
+	        this.example = '1,2,3,4,5,6,7,0,8';
+	        break;
+	    default:
+		this.puzzle = 4;
+		this.example = '1,2,3,4,5,6,7,8,9,10,11,12,13,14,0,15';
+	}
+        },
+	fly:function(event){
+	    this.solutions = '';
+	    this.steps = '';
+		  
+  	    if(this.message.match(',')){
+                var puzzle = this.message.split(',');
+	    } else if (this.message.match('，')){
+	        var puzzle = this.message.split('，');
+	    } else{
+	        var puzzle = this.message.split(' ');
+	    }
+			  
+			  var arr = [];
+			  for (var i in puzzle) {
+				  arr.push(puzzle[i]*1);
+			  }
+			  if (arr.length != this.puzzle ** 2){
+				alert("请按正确格式与长度输入。");
+				return;
+			  }
+			  //alert(puzzle.indexOf(0));
+			  if (this.puzzle == 3){
+			    var solution = solve_3(arr);
+			  }else{
+			    var solution = solve_4(arr);
+			  }
+			  this.steps = '最少步：' + solution[0];
+			  for (let j in solution[1]) {
+				let d = solution[1][j]*1;
+				switch (d) {
+				  case -1:
+					this.solutions += "左 ";
+					break;
+				  case 1:
+					this.solutions += "右 ";
+					break;
+				  case -4:
+				  case -3:
+					  this.solutions += "上 ";
+					break;
+				  default:
+					this.solutions += "下 ";
+				}
+			  //this.solutions = solution[1];
+			  }
+		    }
+        }
+    })
