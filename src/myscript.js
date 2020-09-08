@@ -1,4 +1,4 @@
-//优先级队列，用于4x4的启发式搜索
+//优先级队列，用于启发式搜索
 function PriorityQueue(){
     this.dataStore = [];
     this.enqueue = enqueue;
@@ -80,7 +80,7 @@ function solve_3(board){
         let newboard = [...state1.board];
         [newboard[state1.pos0] ,newboard[nei]] = [newboard[nei], newboard[state1.pos0]];
         if (!seen[newboard.toString()]){
-          let new_state = new state(state1.depth+1, newboard, nei, state1.depth+1, state1.process.concat(dir[i]));
+          let new_state = new state(state1.depth+1 + +0.9 * calDistance(newboard,3), newboard, nei, state1.depth+1, state1.process.concat(dir[i]));
           pQueue.enqueue(new_state);
           seen[state1.board.toString()] = true;
         }
@@ -88,7 +88,7 @@ function solve_3(board){
     }
   }
 }
-//4*4求解
+//4*4求解,如你所见，和3x3几乎没区别，但我暂时懒得整了
 function solve_4(board){
     let target = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
     let dir = [-1,1,-4,4];
@@ -121,10 +121,29 @@ function solve_4(board){
         }
       }
 }
+
+//逆序数判断状态有无解
+function canUse(numbers) {
+    var ivsNumber = 0;
+    for (let i = 0; i < numbers.length; i++) {
+        for (let j = i + 1; j < numbers.length; j++) {
+            if (numbers[i] > numbers[j] && numbers[i] * numbers[j] != 0) {
+                ivsNumber++;
+            }
+        }
+    }
+    if (ivsNumber % 2 == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //定义了几个全局变量
 var op = 3;
 var state_input = [];
 var solutions;
+var flag;
 //vuejs实现的几个按钮
 var vm = new Vue({
     //DOM元素，挂载视图模式
@@ -173,8 +192,14 @@ var vm = new Vue({
               alert("请按正确格式与长度输入。");
               return;
             }
+            
+            if (!canUse(arr)){
+                alert("当前状态无解！");
+                flag = 0;
+                return;
+            }
             state_input = arr;
-            //alert(puzzle.indexOf(0));
+            flag = 1;
             if (this.puzzle == 3){
               var solution = solve_3(arr);
             }else{
@@ -203,6 +228,7 @@ var vm = new Vue({
         }
     }
 })
+
 
 //以下为展示部分 jQuery实现
 //上色
@@ -265,8 +291,10 @@ $(document).ready(function() {
         if (state_input.length == op ** 2){
             GenerateTables(op, state_input);
         }
-        var sleep = setTimeout(display, 2020);
-        //display();
+        if (flag){
+            var sleep = setTimeout(display, 2020);
+            //display();
+        }
     });
     //生成图表
     function GenerateTables(op, numbers) {
