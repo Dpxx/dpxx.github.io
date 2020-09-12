@@ -132,6 +132,10 @@ function canUse(numbers) {
             }
         }
     }
+    //四阶数字华容道续判断0的行数，若为奇数，则逆序数应为奇数
+    if (numbers.length == 16){
+        ivsNumber += 3 - parseInt(numbers.indexOf(0)/4)
+    }
     if (ivsNumber % 2 == 0) {
         return true;
     } else {
