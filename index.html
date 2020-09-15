@@ -22,6 +22,15 @@
     <p>{{ solutions }}</p>
 </div>
 <div id="gameDiv"></div>
+{% include footer.html %}
+{% if site.leancloud.enable %}
+<div>
+  <span id="{{ page.url }}" class="leancloud_visitors" data-flag-title="{{ page.title }}">
+    Visited:
+    <a href="#"><span class="leancloud-visitors-count"></span>次</a>
+  </span>
+</div>
+{% endif %}
 <script src="src/myscript.js"></script>
 </body>
 </html>
