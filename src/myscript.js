@@ -105,10 +105,10 @@ function solve_4(board){
         if (state1.board.toString() == target.toString()){
           return [state1.depth, state1.process];
         }else if ("(" + state1.board.join(", ") + ")" in pre_sol){
-			let pre_solution = pre_sol["(" + state1.board.join(", ") + ")"];
-			console.log([state1.depth + pre_solution.length, state1.process.concat(pre_solution)]);
-			return [state1.depth + pre_solution.length, state1.process.concat(pre_solution)];
-		}
+            let pre_solution = pre_sol["(" + state1.board.join(", ") + ")"];
+            console.log([state1.depth + pre_solution.length, state1.process.concat(pre_solution)]);
+            return [state1.depth + pre_solution.length, state1.process.concat(pre_solution)];
+        }
         for (let i = 0; i < 4;i++){
           let nei = state1.pos0 + dir[i];
           if (Math.abs(Math.floor(nei / 4) - Math.floor(state1.pos0  / 4)) + Math.abs(nei % 4 - state1.pos0 % 4) != 1){
@@ -137,7 +137,7 @@ function canUse(numbers) {
             }
         }
     }
-    //四阶数字华容道续判断0的行数，若为奇数，则逆序数应为奇数
+    //偶数阶数字华容道续判断0的行数，若为奇数，则逆序数应为奇数
     if (numbers.length == 16){
         ivsNumber += 3 - parseInt(numbers.indexOf(0)/4)
     }
