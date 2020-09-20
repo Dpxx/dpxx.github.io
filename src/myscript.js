@@ -101,9 +101,14 @@ function solve_4(board){
     while (! pQueue.empty()){
         state1 = pQueue.dequeue();
         console.log(state1.priority);
+		
         if (state1.board.toString() == target.toString()){
           return [state1.depth, state1.process];
-        }
+        }else if ("(" + state1.board.join(", ") + ")" in pre_sol){
+			let pre_solution = pre_sol["(" + state1.board.join(", ") + ")"];
+			console.log([state1.depth + pre_solution.length, state1.process.concat(pre_solution)]);
+			return [state1.depth + pre_solution.length, state1.process.concat(pre_solution)];
+		}
         for (let i = 0; i < 4;i++){
           let nei = state1.pos0 + dir[i];
           if (Math.abs(Math.floor(nei / 4) - Math.floor(state1.pos0  / 4)) + Math.abs(nei % 4 - state1.pos0 % 4) != 1){
@@ -157,7 +162,7 @@ var vm = new Vue({
         message:'',
         active:'three',
         puzzle:3,
-        example:'1,2,3,4,5,6,7,0,8',
+        example:'2,0,6,1,3,5,4,7,8',
         steps:'',
         solutions:''
     }, 
@@ -167,12 +172,12 @@ var vm = new Vue({
         switch (item){
             case "three":
                 this.puzzle = 3;
-                this.example = '1,2,3,4,5,6,7,0,8';
+                this.example = '2,0,6,1,3,5,4,7,8';
                 op = 3;
                 break;
             default:
                 this.puzzle = 4;
-                this.example = '1,2,3,4,5,6,7,8,9,10,11,12,13,14,0,15';
+                this.example = '5,1,2,12,4,3,15,7,9,6,0,8,13,14,11,10';
                 op = 4;
         }
         },
@@ -209,7 +214,7 @@ var vm = new Vue({
             }else{
               var solution = solve_4(arr);
             }
-            this.steps = '最少步数：' + solution[0];
+            this.steps = '步数：' + solution[0];
             for (let j in solution[1]) {
               let d = solution[1][j]*1;
               switch (d) {
