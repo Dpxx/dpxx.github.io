@@ -2,19 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>数字华容道</title>
+    <title>Title</title>
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
     <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     <link rel="stylesheet" href="src/mystyle.css" type="text/css" />
-    <script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?7bca68660f08f2b4616fc6c26d156a1e";
-        var s = document.getElementsByTagName("script")[0]; 
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
 </head>
 <body>
 <div id="main">
@@ -30,7 +21,11 @@
     <p>{{ steps }}</p>
     <p>{{ solutions }}</p>
 </div>
-<div id="gameDiv"></div>
+<div id="game">
+    <div id="gameDiv"></div>
+    <button id="button_r"><span>replay</span></button>
+</div>
+<p id="author">Author : Dpx.</p> 
 <script src="src/myscript.js"></script>
 <script src="src/record_15.json"></script>
 </body>
