@@ -104,9 +104,8 @@ function solve_4(board){
 		
         if (state1.board.toString() == target.toString()){
           return [state1.depth, state1.process];
-        }else if ("(" + state1.board.join(", ") + ")" in pre_sol){
-            let pre_solution = pre_sol["(" + state1.board.join(", ") + ")"];
-            console.log([state1.depth + pre_solution.length, state1.process.concat(pre_solution)]);
+        }else if (state1.board.join(" ") in pre_sol){
+            let pre_solution = pre_sol[state1.board.join(" ")];
             return [state1.depth + pre_solution.length, state1.process.concat(pre_solution)];
         }
         for (let i = 0; i < 4;i++){
