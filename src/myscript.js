@@ -101,7 +101,7 @@ function solve_4(board){
     while (! pQueue.empty()){
         state1 = pQueue.dequeue();
         console.log(state1.priority);
-		
+        
         if (state1.board.toString() == target.toString()){
           return [state1.depth, state1.process];
         }else if (state1.board.join(" ") in pre_sol){
@@ -136,7 +136,7 @@ function canUse(numbers) {
             }
         }
     }
-    //偶数阶数字华容道续判断0的行数，若为奇数，则逆序数应为奇数
+    //四阶数字华容道续判断0的行数，若为奇数，则逆序数应为奇数
     if (numbers.length == 16){
         ivsNumber += 3 - parseInt(numbers.indexOf(0)/4)
     }
@@ -302,6 +302,14 @@ $(document).ready(function() {
         if (flag){
             var sleep = setTimeout(display, 2020);
             //display();
+        }
+    });
+    $("#button_r").click(function() {
+        if (state_input.length == op ** 2){
+            GenerateTables(op, state_input);
+        }
+        if (flag){
+            var sleep = setTimeout(display, 2020);
         }
     });
     //生成图表
