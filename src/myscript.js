@@ -176,7 +176,7 @@ var vm = new Vue({
                 break;
             default:
                 this.puzzle = 4;
-                this.example = '5,1,2,12,4,3,15,7,9,6,0,8,13,14,11,10';
+                this.example = '5,1,4,7,2,11,3,8,9,6,14,15,13,10,0,12';
                 op = 4;
         }
         },
