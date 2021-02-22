@@ -117,7 +117,7 @@ function solve_4(board){
             let newboard = [...state1.board];
             [newboard[state1.pos0] ,newboard[nei]] = [newboard[nei], newboard[state1.pos0]];
             if (!seen[newboard.toString()]){
-              let new_state = new state(state1.depth+1+0.9 * calDistance(newboard,4), newboard, nei, state1.depth+1, state1.process.concat(dir[i]));
+              let new_state = new state(state1.depth+1+0.5 * calDistance(newboard,4), newboard, nei, state1.depth+1, state1.process.concat(dir[i]));
               pQueue.enqueue(new_state);
               seen[state1.board.toString()] = true;
             }
@@ -240,21 +240,67 @@ var vm = new Vue({
 
 //以下为展示部分 jQuery实现
 //上色
-function setColor(tds) {
+function setColor(tds,op) {
     var nullTd = tds.filter(function() {
         return $(this).html() == 0;
-    });
-    var notNullTd = tds.not(nullTd);
-    notNullTd.css({
-        "backgroundColor": "#3CAAD1",
-        "color": "white",
-        "borderColor": "black"
     });
     nullTd.css({
         "backgroundColor": "#FFFAE8",
         "color":"transparent",
         "borderColor": "black"
     });
+	var firstTd = tds.filter(function() {
+		var firstlist = [1,2,3,4];
+		if (op == 3){firstlist = [1,2,3];}
+        return firstlist.indexOf(Number($(this).html())) != -1;
+    });
+	firstTd.css({
+		"backgroundColor": "#707070",
+        "color": "white",
+        "borderColor": "black"
+	});
+	var firstTd2 = tds.filter(function() {
+		var firstlist2 = [5,9,13];
+		if (op == 3){firstlist2 = [4,7];}
+        return firstlist2.indexOf(Number($(this).html())) != -1;
+    });
+	firstTd2.css({
+		"backgroundColor": "#444444",
+        "color": "white",
+        "borderColor": "black"
+	});
+	
+	var secondTd = tds.filter(function() {
+		var secondlist = [6,7,8];
+		if (op == 3){secondlist = [5,6];}
+        return secondlist.indexOf(Number($(this).html())) != -1;
+    });
+	secondTd.css({
+		"backgroundColor": "#00c91a",
+        "color": "white",
+        "borderColor": "black"
+	});
+	
+	var secondTd2 = tds.filter(function() {
+		var secondlist2 = [10,14];
+		if (op == 3){secondlist2 = [8];}
+        return secondlist2.indexOf(Number($(this).html())) != -1;
+    });
+	secondTd2.css({
+		"backgroundColor": "#008314",
+        "color": "white",
+        "borderColor": "black"
+	});
+	
+	var thirdTd = tds.filter(function() {
+		var thirdlist = [11,15,12];
+        return thirdlist.indexOf(Number($(this).html())) != -1;
+    });
+	thirdTd.css({
+		"backgroundColor": "#006fff",
+        "color": "white",
+        "borderColor": "black"
+	});
 }
 //交换两个方块
 function setContentAndStep(cell0, cell1) {
@@ -262,7 +308,7 @@ function setContentAndStep(cell0, cell1) {
     cell0.html(0);
 }
 
-function display(){
+function display(op){
     pos_0 = state_input.indexOf(0);
 
     var index = 0;
@@ -275,7 +321,7 @@ function display(){
             var cell_e = $("tr td").eq(pos_0 + solutions[index]);
             setContentAndStep(cell_e, cell0);
             pos_0 = pos_0 + solutions[index];
-            setColor($("tr td"));
+            setColor($("tr td"), op);
             index++;
         }
     }, 100);
@@ -300,7 +346,7 @@ $(document).ready(function() {
             GenerateTables(op, state_input);
         }
         if (flag){
-            var sleep = setTimeout(display, 2020);
+            var sleep = setTimeout(display(op), 2020);
             //display();
         }
     });
@@ -309,7 +355,7 @@ $(document).ready(function() {
             GenerateTables(op, state_input);
         }
         if (flag){
-            var sleep = setTimeout(display, 2020);
+            var sleep = setTimeout(display(op), 2020);
         }
     });
     //生成图表
@@ -342,6 +388,6 @@ $(document).ready(function() {
             $("tr td").eq(i).attr("id", i + 1);
         }
 
-        setColor($("tr td"));
+        setColor($("tr td"), op);
     }
 })
