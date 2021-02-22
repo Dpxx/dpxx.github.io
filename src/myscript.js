@@ -198,6 +198,7 @@ var vm = new Vue({
             }
             if (arr.length != this.puzzle ** 2){
               alert("请按正确格式与长度输入。");
+	      flag = 0;
               return;
             }
             
