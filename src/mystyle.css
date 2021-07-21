@@ -119,6 +119,10 @@ button:hover span:after {
     position:absolute;
     top:50%;
 }
+#button_r {
+    position:absolute;
+    top:40%;
+}
 #EE447{
 	font-size:18.06px;
     position:absolute;
