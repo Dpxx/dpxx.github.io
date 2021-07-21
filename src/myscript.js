@@ -359,6 +359,11 @@ $(document).ready(function() {
             var sleep = setTimeout(display(op), 2020);
         }
     });
+    $("#button_rs").click(function() {
+        if (state_input.length == op ** 2){
+            GenerateTables(op, state_input);
+        }
+    });
     //生成图表
     function GenerateTables(op, numbers) {
         gameDiv.append("<table  align='center' id='gameTable'></table>");
